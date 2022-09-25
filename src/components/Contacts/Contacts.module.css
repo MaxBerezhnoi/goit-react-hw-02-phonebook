@@ -1,0 +1,9 @@
+.contacts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+h1{
+    margin-right: auto;
+    margin-left: auto;
+}
