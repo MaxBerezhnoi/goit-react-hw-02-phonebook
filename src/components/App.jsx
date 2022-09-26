@@ -1,16 +1,12 @@
 import Phonebook from "./Phonebook";
-import Contacts from "./Contacts";
+
 
 const { Component } = require("react")
 
 class App extends Component {
 
-  state = {
-    contacts: [],
-    name: ''
-  };
-
-
+  
+  
   render() {
     return (
       
@@ -27,8 +23,7 @@ class App extends Component {
         >
           React homework template 2-2
         <Phonebook />
-      <Contacts />  
-        
+       
       </div> 
       
     )
