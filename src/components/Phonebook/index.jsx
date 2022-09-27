@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import css from './Phonebook.module.css';
-import { nanoid } from 'nanoid';
+import shortid from 'shortid';
 
 import Contacts from '../Contacts';
+import Notification from 'components/Notification';
 
 class Phonebook extends Component {
   state = {
@@ -10,11 +11,12 @@ class Phonebook extends Component {
     name: '',
   };
 
-  id = nanoid(5);
+  nameInput = shortid.generate();
+  
+  
 
   handleNameChange = event => {
       this.setState({ name: event.currentTarget.value });
-      console.log(this.state.name);
   };
 
   reset = () => {
@@ -23,22 +25,29 @@ class Phonebook extends Component {
 
   addContact = event => {
     event.preventDefault();
+      
     let userData = {
       name: this.state.name,
-      id: this.id,
-      };
-      console.log(userData);
-    this.setState({
-      contacts: this.state.contacts.concat(userData),
+      id: shortid.generate(),
+    };
+
+    let data = [];
+    data.push(userData);
+    
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.concat(data)
+      }
     });
+      
     this.reset();
-    console.log(this.state);
+   
   };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.addContact} id={this.id}>
+        <form onSubmit={this.addContact} id={this.nameInput}>
           <h1>Phonebook</h1>
           <div className={css.phonebookInput}>
             <label>
@@ -51,7 +60,7 @@ class Phonebook extends Component {
                 required
                 value={this.state.name}
                 onChange={this.handleNameChange}
-                id={this.id}
+                id={this.nameInput}
               />
               <button type="submit" className={css.addContact}>
                 Add Contact
@@ -59,8 +68,8 @@ class Phonebook extends Component {
             </label>
           </div>
         </form>
-
-        <Contacts contacts={this.state.contacts} />
+{this.state.contacts.length === 0 && <Notification message="Add your first contact"/>}
+ {this.state.contacts.length !== 0 && <Contacts contacts={this.state.contacts} id={this.state.contacts.id} />}       
       </div>
     );
   }

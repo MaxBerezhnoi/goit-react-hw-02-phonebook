@@ -1,5 +1,5 @@
-export default function ContactsEl({item}) {
+export default function ContactsEl({ item , id }) {
     return (
-        <li>{item}</li>
+        <li key={id}>{item}</li>
     )
 }
