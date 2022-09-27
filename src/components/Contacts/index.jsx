@@ -8,7 +8,7 @@ export default function Contacts({ contacts, id }) {
         <div className={css.contacts}>
             <h1>Contacts</h1>
             <ul>
-                {contacts.map(contact => (<ContactsEl item={contact.name} id ={{id}} />))} 
+                {contacts.map(contact => (<ContactsEl item={contact.name} itemNumber={ contact.number } id ={{id}} />))} 
             </ul>
             
       </div>

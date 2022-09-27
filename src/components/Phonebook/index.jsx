@@ -9,44 +9,48 @@ class Phonebook extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
 
   nameInput = shortid.generate();
-  
-  
+  numberInput = shortid.generate();
+
+  handleNumberChange = event => {
+    this.setState({ number: event.currentTarget.value });
+  };
 
   handleNameChange = event => {
-      this.setState({ name: event.currentTarget.value });
+    this.setState({ name: event.currentTarget.value });
   };
 
   reset = () => {
-    this.setState({ name: '' });
+    this.setState({ name: '', number: ''});
   };
 
   addContact = event => {
     event.preventDefault();
-      
+
     let userData = {
+      number: this.state.number,
       name: this.state.name,
       id: shortid.generate(),
     };
 
     let data = [];
     data.push(userData);
-    
+
     this.setState(prevState => {
       return {
-        contacts: prevState.contacts.concat(data)
-      }
+        contacts: prevState.contacts.concat(data),
+      };
     });
-      
+
     this.reset();
-   
   };
 
   render() {
     return (
-      <div>
+      <div className={css.form}>
         <form onSubmit={this.addContact} id={this.nameInput}>
           <h1>Phonebook</h1>
           <div className={css.phonebookInput}>
@@ -62,14 +66,34 @@ class Phonebook extends Component {
                 onChange={this.handleNameChange}
                 id={this.nameInput}
               />
-              <button type="submit" className={css.addContact}>
-                Add Contact
-              </button>
             </label>
+            <label>
+              Number
+              <input
+                type="tel"
+                name="number"
+                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                required
+                value={this.state.number}
+                onChange={this.handleNumberChange}
+                id={this.numberInput}
+              />
+            </label>
+            <button type="submit" className={css.buttonAddContact}>
+              Add Contact
+            </button>
           </div>
         </form>
-{this.state.contacts.length === 0 && <Notification message="Add your first contact"/>}
- {this.state.contacts.length !== 0 && <Contacts contacts={this.state.contacts} id={this.state.contacts.id} />}       
+        {this.state.contacts.length === 0 && (
+          <Notification message="Add your first contact" />
+        )}
+        {this.state.contacts.length !== 0 && (
+          <Contacts
+            contacts={this.state.contacts}
+            id={this.state.contacts.id}
+          />
+        )}
       </div>
     );
   }
