@@ -21,6 +21,39 @@ class Phonebook extends Component {
   nameInput = shortid.generate();
   numberInput = shortid.generate();
 
+  handleSearch = (event) => {
+    let searchData = event.currentTarget.value.toString().toUpperCase();
+    console.log(searchData);
+    let data = [];
+    //console.log(this.state.contacts);
+    if (event.currentTarget.value === '' ) {
+      this.resetSearch();
+    }
+    
+    else {this.state.contacts.forEach(search => {
+      if (search.name.toUpperCase().includes(searchData)) {
+        data.push(search);
+        console.log(data);
+        
+        return data;
+        
+      }
+    
+      });
+
+    this.setState({ contacts: data })}
+       
+    };
+
+   
+  
+
+  handleFilterChange = event => {
+    this.setState({ filter: event.currentTarget.value });
+    this.handleSearch(event);
+    
+  };
+
   handleNumberChange = event => {
     this.setState({ number: event.currentTarget.value });
   };
@@ -29,10 +62,22 @@ class Phonebook extends Component {
     this.setState({ name: event.currentTarget.value });
   };
 
-  reset = () => {
-    this.setState({ name: '', number: ''});
+  resetSearch = () => {
+    this.setState({
+      contacts: [
+        {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+        {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+        {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+        {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+      ],
+    });
   };
 
+  reset = () => {
+    this.setState({name: '',
+    number: '',})
+    
+}
   addContact = event => {
     event.preventDefault();
 
@@ -96,9 +141,12 @@ class Phonebook extends Component {
         )}
         {this.state.contacts.length !== 0 && (
           <Contacts
+            filter={this.state.filter}
             contacts={this.state.contacts}
             id={this.state.contacts.id}
-          />
+            onChange={this.handleFilterChange}
+            />
+          
         )}
       </div>
     );
