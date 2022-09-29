@@ -129,7 +129,7 @@ class Phonebook extends Component {
           <h1>Phonebook</h1>
           <div className={css.phonebookInput}>
             <label>
-              Name
+             <b>Name: </b>  
               <input
                 type="text"
                 name="name"
@@ -142,7 +142,7 @@ class Phonebook extends Component {
               />
             </label>
             <label>
-              Number
+              <b>Number: </b>
               <input
                 type="tel"
                 name="number"

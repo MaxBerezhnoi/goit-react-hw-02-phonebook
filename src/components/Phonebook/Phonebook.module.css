@@ -1,16 +1,24 @@
 .phonebookInput {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border: solid 1px darkgray;
-    height: 120px; 
-    margin: 5px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+  align-items: flex-end;
+  border: solid 1px darkgray;
+  height: 120px;
+  margin: 5px 8px;
+  padding: 5px 8px;
 }
-.buttonAddContact{
-    margin-top: 10px;
+.buttonAddContact {
+  margin-top: 10px;
 }
-.form{
-    border: solid 2px rgb(85, 84, 84); 
-padding: 10px 20px;
+.form {
+  border: solid 2px rgb(85, 84, 84);
+  padding: 10px 20px;
+  font-size: medium;
+}
+h1{
+    width:fit-content;
+    margin-right: auto;
+    margin-left: auto;
 }
