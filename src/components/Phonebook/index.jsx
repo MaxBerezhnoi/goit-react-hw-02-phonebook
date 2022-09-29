@@ -5,14 +5,17 @@ import shortid from 'shortid';
 import Contacts from '../Contacts';
 import Notification from 'components/Notification';
 
-class Phonebook extends Component {
-  state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+const userContacts = [{id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
       {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
       {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },]
+    
+class Phonebook extends Component {
+
+  
+  
+  state = {
+    contacts: userContacts,
     name: '',
     number: '',
     filter: '',
@@ -21,7 +24,7 @@ class Phonebook extends Component {
   nameInput = shortid.generate();
   numberInput = shortid.generate();
 
-  handleSearch = (event) => {
+  /*handleSearch = (event) => {
     let searchData = event.currentTarget.value.toString().toUpperCase();
     console.log(searchData);
     let data = [];
@@ -38,21 +41,48 @@ class Phonebook extends Component {
         return data;
         
       }
-    
+      
       });
 
     this.setState({ contacts: data })}
        
-    };
+    };*/
 
    
   
 
   handleFilterChange = event => {
     this.setState({ filter: event.currentTarget.value });
-    this.handleSearch(event);
+  
+    let searchData = event.currentTarget.value.toString().toUpperCase();
+    console.log(searchData);
+    let data = [];
     
-  };
+    this.state.contacts.forEach(search => {
+      let updateData = search.name.toUpperCase().includes(searchData);
+      console.log(updateData);
+      if (updateData === true) {
+        data.push(search);
+        return data;
+      }
+      /*else if(updateData !== true){
+        this.resetSearch();
+        return;
+      }*/
+    });
+    
+     if (event.currentTarget.value === '') {
+            this.resetSearch();
+            return;
+          }
+          
+  else{this.setState({ contacts: data });}
+    
+    }
+   
+       
+    
+  
 
   handleNumberChange = event => {
     this.setState({ number: event.currentTarget.value });
@@ -64,12 +94,7 @@ class Phonebook extends Component {
 
   resetSearch = () => {
     this.setState({
-      contacts: [
-        {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-        {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-        {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-        {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-      ],
+      contacts: userContacts,
     });
   };
 
@@ -90,12 +115,10 @@ class Phonebook extends Component {
     let data = [];
     data.push(userData);
 
-    this.setState(prevState => {
-      return {
-        contacts: prevState.contacts.concat(data),
-      };
-    });
-
+    this.setState({
+        contacts: userContacts.concat(data),
+      });
+    console.log(userContacts);
     this.reset();
   };
 
@@ -137,7 +160,14 @@ class Phonebook extends Component {
           </div>
         </form>
         {this.state.contacts.length === 0 && (
-          <Notification message="Add your first contact" />
+          <Contacts
+            
+           filter={this.state.filter}
+           contacts={userContacts}
+           id={this.state.contacts.id}
+           onChange={this.handleFilterChange}
+           ><Notification message="No Contact with this name" /></Contacts>
+          
         )}
         {this.state.contacts.length !== 0 && (
           <Contacts

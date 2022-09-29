@@ -7,3 +7,8 @@ h1{
     margin-right: auto;
     margin-left: auto;
 }
+.noSearch{
+
+    font-size: small;
+    color: red;
+}
