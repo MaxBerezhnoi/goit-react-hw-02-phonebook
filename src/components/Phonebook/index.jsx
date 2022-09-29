@@ -22,34 +22,7 @@ class Phonebook extends Component {
   };
 
   nameInput = shortid.generate();
-  numberInput = shortid.generate();
-
-  /*handleSearch = (event) => {
-    let searchData = event.currentTarget.value.toString().toUpperCase();
-    console.log(searchData);
-    let data = [];
-    //console.log(this.state.contacts);
-    if (event.currentTarget.value === '' ) {
-      this.resetSearch();
-    }
-    
-    else {this.state.contacts.forEach(search => {
-      if (search.name.toUpperCase().includes(searchData)) {
-        data.push(search);
-        console.log(data);
-        
-        return data;
-        
-      }
-      
-      });
-
-    this.setState({ contacts: data })}
-       
-    };*/
-
-   
-  
+  numberInput = shortid.generate();  
 
   handleFilterChange = event => {
     this.setState({ filter: event.currentTarget.value });
@@ -65,10 +38,7 @@ class Phonebook extends Component {
         data.push(search);
         return data;
       }
-      /*else if(updateData !== true){
-        this.resetSearch();
-        return;
-      }*/
+      
     });
     
      if (event.currentTarget.value === '') {
@@ -114,6 +84,14 @@ class Phonebook extends Component {
 
     let data = [];
     data.push(userData);
+
+    userContacts.forEach( userContact => {
+      let updateData = userContact.name.toUpperCase().includes(userData.name.toUpperCase());
+      console.log(updateData);
+      if (updateData === true) {
+        return alert((userData.name.toUpperCase())+' is already in contacts');
+      }
+      })
 
     this.setState({
         contacts: userContacts.concat(data),
