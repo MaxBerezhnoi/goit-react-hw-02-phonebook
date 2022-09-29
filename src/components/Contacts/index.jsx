@@ -2,7 +2,7 @@ import ContactsEl from 'components/ContactsEl';
 //import SearchField from "components/SearchField";
 import css from './Contacts.module.css';
 
-export default function Contacts({ contacts, id, onChange, filter, children }) {
+export default function Contacts({ contacts, id, onChange, filter, children, deleteContact }) {
   return (
     <div className={css.contacts}>
       <h1>Contacts</h1>
@@ -21,10 +21,13 @@ export default function Contacts({ contacts, id, onChange, filter, children }) {
       </div>
       <ul>
         {contacts.map(contact => (
-          <ContactsEl
+            <ContactsEl
+                id ={id}
             item={contact.name}
             itemNumber={contact.number}
-            id={{ id }}
+                contactId={ id }
+                deleteContact={deleteContact}
+                deleteButton={css.deleteButton}
           />
         ))}
       </ul>

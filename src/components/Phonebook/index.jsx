@@ -5,7 +5,7 @@ import shortid from 'shortid';
 import Contacts from '../Contacts';
 import Notification from 'components/Notification';
 
-const userContacts = [{id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+const userContacts = [{id: 1, name: 'Rosie Simpson', number: '459-12-56'},
       {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
       {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },]
@@ -22,8 +22,9 @@ class Phonebook extends Component {
   };
 
   nameInput = shortid.generate();
-  numberInput = shortid.generate();  
-
+  numberInput = shortid.generate();
+  
+//Функция фильтра
   handleFilterChange = event => {
     this.setState({ filter: event.currentTarget.value });
   
@@ -49,9 +50,22 @@ class Phonebook extends Component {
   else{this.setState({ contacts: data });}
     
     }
-   
-       
+  //Функция фильтра
+  
+  //Функция удаления
+
+  deleteContact = (event) => {
+      console.log("mama mia");
+    let x = userContacts.filter((item) => 
+      item.id !== 1
+      //item.id !== event.currentTarget.id
+    )
+    console.log(x);
+    }
     
+  
+       
+   //Функция удаления  
   
 
   handleNumberChange = event => {
@@ -143,7 +157,8 @@ class Phonebook extends Component {
            filter={this.state.filter}
            contacts={userContacts}
            id={this.state.contacts.id}
-           onChange={this.handleFilterChange}
+            onChange={this.handleFilterChange}
+            deleteContact={this.deleteContact}
            ><Notification message="No Contact with this name" /></Contacts>
           
         )}
@@ -153,6 +168,7 @@ class Phonebook extends Component {
             contacts={this.state.contacts}
             id={this.state.contacts.id}
             onChange={this.handleFilterChange}
+            deleteContact={this.deleteContact}
             />
           
         )}
