@@ -5,15 +5,14 @@ import shortid from 'shortid';
 import Contacts from '../Contacts';
 import Notification from 'components/Notification';
 
-const userContacts = [{id: 1, name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },]
-    
-class Phonebook extends Component {
+let userContacts = [
+  { id: 1, name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+];
 
-  
-  
+class Phonebook extends Component {
   state = {
     contacts: userContacts,
     name: '',
@@ -23,15 +22,15 @@ class Phonebook extends Component {
 
   nameInput = shortid.generate();
   numberInput = shortid.generate();
-  
-//Функция фильтра
+
+  //Функция фильтра
   handleFilterChange = event => {
     this.setState({ filter: event.currentTarget.value });
-  
+
     let searchData = event.currentTarget.value.toString().toUpperCase();
     console.log(searchData);
     let data = [];
-    
+
     this.state.contacts.forEach(search => {
       let updateData = search.name.toUpperCase().includes(searchData);
       console.log(updateData);
@@ -39,34 +38,29 @@ class Phonebook extends Component {
         data.push(search);
         return data;
       }
-      
     });
-    
-     if (event.currentTarget.value === '') {
-            this.resetSearch();
-            return;
-          }
-          
-  else{this.setState({ contacts: data });}
-    
+
+    if (event.currentTarget.value === '') {
+      this.resetSearch();
+      return;
+    } else {
+      this.setState({ contacts: data });
     }
+  };
   //Функция фильтра
-  
+
   //Функция удаления
 
-  deleteContact = (event) => {
-      console.log("mama mia");
-    let x = userContacts.filter((item) => 
-      item.id !== 1
+  deleteContact = event => {
+    console.log('mama mia');
+    let x = userContacts.filter(
+      item => item.id !== 1
       //item.id !== event.currentTarget.id
-    )
+    );
     console.log(x);
-    }
-    
-  
-       
-   //Функция удаления  
-  
+  };
+
+  //Функция удаления
 
   handleNumberChange = event => {
     this.setState({ number: event.currentTarget.value });
@@ -83,10 +77,10 @@ class Phonebook extends Component {
   };
 
   reset = () => {
-    this.setState({name: '',
-    number: '',})
-    
-}
+    this.setState({ name: '', number: '' });
+  };
+
+  //Функция добавления контакта
   addContact = event => {
     event.preventDefault();
 
@@ -98,21 +92,23 @@ class Phonebook extends Component {
 
     let data = [];
     data.push(userData);
+    let updateData = userContacts.find(
+      item => item.name.toUpperCase() === userData.name.toUpperCase()
+    );
 
-    userContacts.forEach( userContact => {
-      let updateData = userContact.name.toUpperCase().includes(userData.name.toUpperCase());
-      console.log(updateData);
-      if (updateData === true) {
-        return alert((userData.name.toUpperCase())+' is already in contacts');
-      }
-      })
-
-    this.setState({
-        contacts: userContacts.concat(data),
-      });
+    if (updateData !== undefined) {
+      this.reset();
+      return alert(userData.name.toUpperCase() + ' is already in contacts');
+      
+    }
+    
+    this.setState({ contacts: userContacts.concat(data) });
+   userContacts = userContacts.concat(data);
     console.log(userContacts);
     this.reset();
+    return userContacts;
   };
+//Функция добавления контакта
 
   render() {
     return (
@@ -121,7 +117,7 @@ class Phonebook extends Component {
           <h1>Phonebook</h1>
           <div className={css.phonebookInput}>
             <label>
-             <b>Name: </b>  
+              <b>Name: </b>
               <input
                 type="text"
                 name="name"
@@ -153,14 +149,14 @@ class Phonebook extends Component {
         </form>
         {this.state.contacts.length === 0 && (
           <Contacts
-            
-           filter={this.state.filter}
-           contacts={userContacts}
-           id={this.state.contacts.id}
+            filter={this.state.filter}
+            contacts={userContacts}
+            id={this.state.contacts.id}
             onChange={this.handleFilterChange}
             deleteContact={this.deleteContact}
-           ><Notification message="No Contact with this name" /></Contacts>
-          
+          >
+            <Notification message="No Contact with this name" />
+          </Contacts>
         )}
         {this.state.contacts.length !== 0 && (
           <Contacts
@@ -169,8 +165,7 @@ class Phonebook extends Component {
             id={this.state.contacts.id}
             onChange={this.handleFilterChange}
             deleteContact={this.deleteContact}
-            />
-          
+          />
         )}
       </div>
     );
