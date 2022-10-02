@@ -6,7 +6,7 @@ import Contacts from '../Contacts';
 import Notification from 'components/Notification';
 
 let userContacts = [
-  { id: 1, name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
@@ -22,6 +22,7 @@ class Phonebook extends Component {
 
   nameInput = shortid.generate();
   numberInput = shortid.generate();
+  idDelete = shortid.generate();
 
   //Функция фильтра
   handleFilterChange = event => {
@@ -51,13 +52,23 @@ class Phonebook extends Component {
 
   //Функция удаления
 
-  deleteContact = event => {
-    console.log('mama mia');
-    let x = userContacts.filter(
-      item => item.id !== 1
-      //item.id !== event.currentTarget.id
+  deleteContact = e => {
+    let deleted = e.currentTarget.value;
+    console.log(e.currentTarget);
+    console.log(deleted);
+    
+    this.setState(
+      {contacts: userContacts.filter(item => item.name !== deleted
+      
+          )}
+        
+     )
+    userContacts = userContacts.filter(
+      item => item.name !== deleted
+      
     );
-    console.log(x);
+    console.log(userContacts);
+    return userContacts; 
   };
 
   //Функция удаления
@@ -151,7 +162,7 @@ class Phonebook extends Component {
           <Contacts
             filter={this.state.filter}
             contacts={userContacts}
-            id={this.state.contacts.id}
+            id={this.idDelete}
             onChange={this.handleFilterChange}
             deleteContact={this.deleteContact}
           >
@@ -162,7 +173,7 @@ class Phonebook extends Component {
           <Contacts
             filter={this.state.filter}
             contacts={this.state.contacts}
-            id={this.state.contacts.id}
+            id={this.idDelete}
             onChange={this.handleFilterChange}
             deleteContact={this.deleteContact}
           />

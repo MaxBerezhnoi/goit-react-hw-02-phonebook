@@ -21,7 +21,8 @@ export default function Contacts({ contacts, id, onChange, filter, children, del
       </div>
       <ul>
         {contacts.map(contact => (
-            <ContactsEl
+          <ContactsEl
+            key = {id}
                 id ={id}
             item={contact.name}
             itemNumber={contact.number}
