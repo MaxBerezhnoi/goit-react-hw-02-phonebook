@@ -1,8 +1,9 @@
 import ContactsEl from 'components/ContactsEl';
 //import SearchField from "components/SearchField";
 import css from './Contacts.module.css';
+import PropTypes from "prop-types";
 
-export default function Contacts({ contacts, id, onChange, filter, children, deleteContact }) {
+export const Contacts=({ contacts, id, onChange, filter, children, deleteContact }) => {
   return (
     <div className={css.contacts}>
       
@@ -34,4 +35,13 @@ export default function Contacts({ contacts, id, onChange, filter, children, del
       </ul>
     </div>
   );
+}
+
+Contacts.propTypes = {
+  contacts: PropTypes.array.isRequired,
+    id: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+  filter: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 }

@@ -1,4 +1,5 @@
-export default function SearchField({contacts, onCheck}) {
+import PropTypes from "prop-types";
+export default function SearchField({ contacts, onCheck }) {
     return (
         <div>
             <p>
@@ -8,4 +9,9 @@ export default function SearchField({contacts, onCheck}) {
             
         </div >
     )
+}
+
+SearchField.propTypes = {
+    contacts: PropTypes.array.isRequired,
+    onCheck: PropTypes.func.isRequired
 }

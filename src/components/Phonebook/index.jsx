@@ -3,7 +3,7 @@ import css from './Phonebook.module.css';
 import shortid from 'shortid';
 
 import Form from 'components/Form';
-import Contacts from '../Contacts';
+import { Contacts } from '../Contacts';
 import Notification from 'components/Notification';
 
 export let userContacts = [

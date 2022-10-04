@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import PropTypes from "prop-types";
 
 export default function ContactsEl({ item, itemNumber, id, deleteContact, deleteButton, contactId }) {
   return (
@@ -11,4 +12,13 @@ export default function ContactsEl({ item, itemNumber, id, deleteContact, delete
       </li>
     </Fragment>
   );
+}
+
+ContactsEl.propTypes = {
+  item: PropTypes.string.isRequired,
+  itemNumber: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  deleteContact: PropTypes.func.isRequired,
+  deleteButton: PropTypes.func.isRequired,
+  contactId: PropTypes.string.isRequired,
 }
