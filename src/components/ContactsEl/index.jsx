@@ -6,7 +6,7 @@ export default function ContactsEl({ item, itemNumber, id, deleteContact, delete
     <Fragment>
       <li key={id}>
         <b>{item}</b>, {itemNumber}, 
-        <button value={item} type="button" onClick={deleteContact} id={contactId} className={deleteButton}>
+        <button value={item} type="button" onClick={deleteContact} key={contactId} className={deleteButton}>
           Delete
         </button>
       </li>

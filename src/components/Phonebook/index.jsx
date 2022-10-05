@@ -13,6 +13,8 @@ export let userContacts = [
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },*/
 ];
 
+
+
 class Phonebook extends Component {
   state = {
     contacts: userContacts,
@@ -20,14 +22,18 @@ class Phonebook extends Component {
   };
 
 
-  idDelete = shortid.generate();
-
+ // contactIdGen = shortid.generate();
+  
   //Функция фильтра
   handleFilterChange = event => {
+    let filterInData = event.currentTarget.value;
     this.setState({ filter: event.currentTarget.value });
-
-    let searchData = event.currentTarget.value.toString().toUpperCase();
-    console.log(searchData);
+    this.filterContacts(filterInData);
+  };
+  
+  filterContacts = (filterInData) => {
+    let searchData = filterInData.toString().toUpperCase();
+    console.log(searchData + "!!!");
     let data = [];
 
     this.state.contacts.forEach(search => {
@@ -39,7 +45,7 @@ class Phonebook extends Component {
       }
     });
 
-    if (event.currentTarget.value === '') {
+    if (filterInData === '') {
       this.resetSearch();
       return;
     } else {
@@ -51,17 +57,17 @@ class Phonebook extends Component {
   //Функция удаления
 
   deleteContact = e => {
-    let deleted = e.currentTarget.value;
+    let deleted = e.currentTarget.value.key;
     console.log(e.currentTarget);
     console.log(deleted);
-
+    
     this.setState({
-      contacts: userContacts.filter(item => item.name !== deleted),
+      contacts: userContacts.filter(item => item.id !== deleted),
     });
      
-    userContacts = userContacts.filter(item => item.name !== deleted);
+   /* userContacts = userContacts.filter(item => item.name !== deleted);
     console.log(userContacts);
-    return userContacts;
+    return userContacts;*/
   };
 
   //Функция удаления
@@ -79,14 +85,14 @@ class Phonebook extends Component {
   addContact = inputData => {
     const name = inputData.name;
     const number = inputData.number;
-    
+    const contactId = shortid.generate();
     console.log(name, number);
     //event.preventDefault();
     
     let userData = {
       number: number,
       name: name,
-      id: shortid.generate(),
+      id: contactId,
     };
   
     let data = [];
@@ -103,11 +109,13 @@ class Phonebook extends Component {
     }
     console.log(updateData);
     this.setState({ contacts: userContacts.concat(data) });
-    userContacts = userContacts.concat(data);
+   /* userContacts = userContacts.concat(data);
     console.log(userContacts);
    
-    return userContacts;
+    return userContacts;*/
   };
+
+  
 
   //Функция добавления контакта
 
@@ -122,9 +130,10 @@ class Phonebook extends Component {
           <Contacts
             filter={this.state.filter}
             contacts={this.state.contacts}
-            id={this.idDelete}
+            id={this.state.contacts.id}
             onChange={this.handleFilterChange}
             deleteContact={this.deleteContact}
+            contactId = {this.state.contacts.id}
           >
             {userContacts.length !== 0  &&(<Notification message="No Contact with this name" />)}
             
@@ -134,9 +143,10 @@ class Phonebook extends Component {
           <Contacts
             filter={this.state.filter}
             contacts={this.state.contacts}
-            id={this.idDelete}
+            id={this.state.contacts.id}
             onChange={this.handleFilterChange}
             deleteContact={this.deleteContact}
+            contactId = {this.state.contacts.id}
           />
         )}
       </div>

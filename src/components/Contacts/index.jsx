@@ -3,7 +3,7 @@ import ContactsEl from 'components/ContactsEl';
 import css from './Contacts.module.css';
 import PropTypes from "prop-types";
 
-export const Contacts=({ contacts, id, onChange, filter, children, deleteContact }) => {
+export const Contacts=({ contacts, id, onChange, filter, children, deleteContact , contactId}) => {
   return (
     <div className={css.contacts}>
       
@@ -27,7 +27,7 @@ export const Contacts=({ contacts, id, onChange, filter, children, deleteContact
                 id ={id}
             item={contact.name}
             itemNumber={contact.number}
-                contactId={ id }
+                contactId={ contactId }
                 deleteContact={deleteContact}
                 deleteButton={css.deleteButton}
           />
