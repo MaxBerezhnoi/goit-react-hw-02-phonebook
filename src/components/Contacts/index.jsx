@@ -8,7 +8,7 @@ export const Contacts=({ contacts, onChange, filter, children, deleteContact }) 
     <div className={css.contacts}>
       
 
-      <div>
+      <div className={css.findForm}>
         <p>Find contacts by name:</p>
           <input
             type="text"

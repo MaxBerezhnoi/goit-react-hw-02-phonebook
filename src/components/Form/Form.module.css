@@ -1,13 +1,15 @@
 .phonebookInput {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-content: center;
-    align-items: flex-end;
-    border: solid 1px darkgray;
-    height: 120px;
-    margin: 5px 8px;
-    padding: 5px 8px;
-  }
-  .buttonAddContact {
-    margin-top: 10px;}
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+  align-items: flex-end;
+  border: solid 1px darkgray;
+  height: 120px;
+  margin: 5px 8px;
+  padding: 5px 8px;
+}
+.buttonAddContact {
+  margin-top: 10px;
+  background-color: rgb(129, 245, 125);
+}
