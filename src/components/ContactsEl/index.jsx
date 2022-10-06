@@ -6,7 +6,7 @@ export default function ContactsEl({ item, itemNumber, id, deleteContact, delete
     <Fragment>
       <li key={id}>
         <b>{item}</b>, {itemNumber}, 
-        <button value={item} type="button" onClick={deleteContact} key={contactId} className={deleteButton}>
+        <button value={item} type="button" onClick={deleteContact} id={ contactId} key={contactId} className={deleteButton}>
           Delete
         </button>
       </li>
@@ -16,9 +16,9 @@ export default function ContactsEl({ item, itemNumber, id, deleteContact, delete
 
 ContactsEl.propTypes = {
   item: PropTypes.string.isRequired,
-  itemNumber: PropTypes.number.isRequired,
+  itemNumber: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   deleteContact: PropTypes.func.isRequired,
-  deleteButton: PropTypes.func.isRequired,
+  deleteButton: PropTypes.string,
   contactId: PropTypes.string.isRequired,
 }

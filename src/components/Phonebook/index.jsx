@@ -7,13 +7,11 @@ import { Contacts } from '../Contacts';
 import Notification from 'components/Notification';
 
 export let userContacts = [
-  /*{ id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },*/
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 ];
-
-
 
 class Phonebook extends Component {
   state = {
@@ -21,132 +19,123 @@ class Phonebook extends Component {
     filter: '',
   };
 
+  // contactIdGen = shortid.generate();
 
- // contactIdGen = shortid.generate();
-  
   //Функция фильтра
   handleFilterChange = event => {
     let filterInData = event.currentTarget.value;
     this.setState({ filter: event.currentTarget.value });
     this.filterContacts(filterInData);
   };
-  
-  filterContacts = (filterInData) => {
+
+  filterContacts = filterInData => {
     let searchData = filterInData.toString().toUpperCase();
-    console.log(searchData + "!!!");
-    let data = [];
+    console.log(searchData);
 
-    this.state.contacts.forEach(search => {
-      let updateData = search.name.toUpperCase().includes(searchData);
-      console.log(updateData);
-      if (updateData === true) {
-        data.push(search);
-        return data;
-      }
-    });
-
-    if (filterInData === '') {
-      this.resetSearch();
-      return;
-    } else {
-      this.setState({ contacts: data });
+    if (searchData !== '') {
+      return this.setState({
+        contacts: userContacts.filter(search =>
+          search.name.toUpperCase().includes(searchData)
+        ),
+      });
     }
+    return this.setState({ contacts: userContacts });
   };
+
   //Функция фильтра
 
   //Функция удаления
 
   deleteContact = e => {
-    let deleted = e.currentTarget.value.key;
+    let deleted = e.currentTarget.id.toString();
     console.log(e.currentTarget);
     console.log(deleted);
-    
-    this.setState({
-      contacts: userContacts.filter(item => item.id !== deleted),
-    });
-     
-   /* userContacts = userContacts.filter(item => item.name !== deleted);
-    console.log(userContacts);
-    return userContacts;*/
-  };
 
-  //Функция удаления
-
-
-  resetSearch = () => {
+    /*this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(item => item.id !== deleted),
+      };
+    });*/
+    let indexDelete = userContacts.findIndex(item => item.id === deleted);
+    console.log(indexDelete);
+    userContacts.splice(indexDelete, 1);
     this.setState({
       contacts: userContacts,
     });
   };
 
-  
+  //Функция удаления
+
+  /*resetSearch = () => {
+    this.setState({
+      contacts: ,
+    });
+  };*/
 
   //Функция добавления контакта
   addContact = inputData => {
     const name = inputData.name;
     const number = inputData.number;
-    const contactId = shortid.generate();
-    console.log(name, number);
+    const contactId = shortid.generate().toString();
+    console.log(name, number, contactId);
+
     //event.preventDefault();
-    
+
     let userData = {
       number: number,
       name: name,
       id: contactId,
     };
-  
+
     let data = [];
     data.push(userData);
-  
+
     let updateData = userContacts.find(
       item => item.name.toUpperCase() === userData.name.toUpperCase()
     );
     console.log(userData.name.toUpperCase());
-    
+    console.log(updateData);
     if (updateData !== undefined) {
-      
       return alert(userData.name.toUpperCase() + ' is already in contacts');
     }
-    console.log(updateData);
-    this.setState({ contacts: userContacts.concat(data) });
-   /* userContacts = userContacts.concat(data);
+    userContacts=userContacts.concat(data);
     console.log(userContacts);
+    this.setState({contacts: userContacts,
+    });
    
-    return userContacts;*/
   };
-
-  
 
   //Функция добавления контакта
 
   render() {
     return (
       <div className={css.form}>
-       <h1>Phonebook</h1>
+        <h1>Phonebook</h1>
         <Form onSubmit={this.addContact} />
 
         <h1>Contacts</h1>
-        { this.state.contacts.length === 0 &&  (
+        {this.state.contacts.length === 0 && (
           <Contacts
             filter={this.state.filter}
             contacts={this.state.contacts}
-            id={this.state.contacts.id}
+            //id={this.state.contacts.id}
             onChange={this.handleFilterChange}
             deleteContact={this.deleteContact}
-            contactId = {this.state.contacts.id}
+            //contactId = {this.state.contacts.id}
           >
-            {userContacts.length !== 0  &&(<Notification message="No Contact with this name" />)}
-            
+            {userContacts.length !== 0 && (
+              <Notification message="No Contact with this name" />
+            )}
           </Contacts>
         )}
         {this.state.contacts.length !== 0 && (
           <Contacts
             filter={this.state.filter}
             contacts={this.state.contacts}
-            id={this.state.contacts.id}
+            // id={this.state.contacts.id}
             onChange={this.handleFilterChange}
             deleteContact={this.deleteContact}
-            contactId = {this.state.contacts.id}
+            //contactId = {this.state.contacts.id}
           />
         )}
       </div>

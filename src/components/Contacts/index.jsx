@@ -3,7 +3,7 @@ import ContactsEl from 'components/ContactsEl';
 import css from './Contacts.module.css';
 import PropTypes from "prop-types";
 
-export const Contacts=({ contacts, id, onChange, filter, children, deleteContact , contactId}) => {
+export const Contacts=({ contacts, onChange, filter, children, deleteContact }) => {
   return (
     <div className={css.contacts}>
       
@@ -23,11 +23,11 @@ export const Contacts=({ contacts, id, onChange, filter, children, deleteContact
       <ul>
         {contacts.map(contact => (
           <ContactsEl
-            key = {id}
-                id ={id}
+            key = {contact.id}
+                id ={contact.id}
             item={contact.name}
             itemNumber={contact.number}
-                contactId={ contactId }
+                contactId={ contact.id}
                 deleteContact={deleteContact}
                 deleteButton={css.deleteButton}
           />
@@ -39,9 +39,9 @@ export const Contacts=({ contacts, id, onChange, filter, children, deleteContact
 
 Contacts.propTypes = {
   contacts: PropTypes.array.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-  filter: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
+  filter: PropTypes.string.isRequired,
+  children: PropTypes.element,
   deleteContact: PropTypes.func.isRequired,
 }
