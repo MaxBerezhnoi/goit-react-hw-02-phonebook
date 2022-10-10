@@ -19,7 +19,7 @@ class Phonebook extends Component {
     filter: '',
   };
 
-  // contactIdGen = shortid.generate();
+  
 
   //Функция фильтра
   handleFilterChange = event => {
@@ -51,11 +51,7 @@ class Phonebook extends Component {
     console.log(e.currentTarget);
     console.log(deleted);
 
-    /*this.setState(prevState => {
-      return {
-        contacts: prevState.contacts.filter(item => item.id !== deleted),
-      };
-    });*/
+    
     let indexDelete = userContacts.findIndex(item => item.id === deleted);
     console.log(indexDelete);
     userContacts.splice(indexDelete, 1);
@@ -66,11 +62,7 @@ class Phonebook extends Component {
 
   //Функция удаления
 
-  /*resetSearch = () => {
-    this.setState({
-      contacts: ,
-    });
-  };*/
+  
 
   //Функция добавления контакта
   addContact = inputData => {
@@ -79,7 +71,7 @@ class Phonebook extends Component {
     const contactId = shortid.generate().toString();
     console.log(name, number, contactId);
 
-    //event.preventDefault();
+  
 
     let userData = {
       number: number,

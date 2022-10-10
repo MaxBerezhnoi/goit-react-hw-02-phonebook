@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import css from './Form.module.css';
 import shortid from 'shortid';
-//import { userContacts } from '../Phonebook'; 
+import PropTypes from 'prop-types';
 
 class Form extends Component {
   state = {
@@ -24,7 +24,7 @@ class Form extends Component {
     e.preventDefault();
     this.props.onSubmit(this.state);
     this.reset();
-  }
+  };
 
   reset = () => {
     this.setState({ name: '', number: '' });
@@ -70,3 +70,7 @@ class Form extends Component {
 }
 
 export default Form;
+
+Form.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
